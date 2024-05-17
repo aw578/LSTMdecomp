@@ -69,7 +69,7 @@ Looking at the results, it's clear that our implementation of generalized contex
 
 # Conclusion and Future Work
 
-The main lesson we took away from the paper was how important using the correct dataset is when it comes to correctly re-implementing a paper. We implemented our own sanity checks so the lack of data didn't affect the reimplementation process too much, but generating our own data resulted in significantly different (if still directionally correct) results. Given how much different datasets can change results, we believe that offhanded descriptions of the dataset generation process are not enough. To guarantee transparency and replicability, future ML papers should include the full datasets they used.
+The main lesson we took away from this project was how important using the correct dataset is when it comes to correctly re-implementing a paper. We implemented our own sanity checks so the lack of data didn't affect the reimplementation process too much, but generating our own data resulted in significantly different (if still directionally correct) results. Given how much different datasets can change results, we believe that brief descriptions of the dataset generation process are not enough. To guarantee transparency and replicability, we believe that future deep learning papers must include the full datasets they used.
 
 In the future, we plan to generate new hypotheses to see whether the results we obtained here generalize to other tasks, as the original paper only tests claims about subject-verb agreement and gender-based anaphora resolution. We also plan to compare the results we obtained to attention scores from transformers to see whether they assign similar scores to the same words in each sentence.
 
