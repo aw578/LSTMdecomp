@@ -20,6 +20,34 @@ The second set of tables breaks down the contribution of various aspects of the 
 These results cover the main advantages contextual decomposition has over other methods. Separating "inside" and "outside" parts lets us identify how outputs attends to the input tokens, while also providing a theoretical framework to isolate the contribution of any arbitrary part of the model toward a prediction. By trying to replicate these two results, we can validate that contextual decomposition produces interpretable results and that it is (relatively) easy to calculate the inside and outside states for a given aspect of the model. In addition, checking that our model matches these results lets us verify that we have correctly reimplemented it. 
 # Re-implementation Details
 
+### Model Architecture
+
+Although we covered the idea of an inside and outside state in the introduction, we need to look at how they're defined to understand the implementation of the method. The starting inside and outside state are passed in from the previous cell state, but we also need to classify the values produced by combining those states. For example, when taking the product of the input and cell gate, we'd want to add the inside candidate values to the inside cell state and vice-versa for the outside candidate values. As such, contextual decomposition requires classifying the interactions between the inside state, outside state, and bias in the LSTM.
+
+This raises another problem: in order to analyze those interactions, we need to handle each one separately. This is straightforward for the forget gate, which is just a dot product, but the input values for the other gates are first filtered through nonlinearities, like the tanh and sigmoid functions. We can't isolate the contributions of the inside and outside states to the output values, but we can estimate them using approximate Shapley values. To do this, we calculate the value of the tanh function before and after adding the component. Since the components we're adding have no natural order, we also have to average over all orderings. This takes exponential time, but since the nonlinearities we're trying to decompose only have 3 components and the forward pass is so fast it's not a problem in practice.
+
+**![](https://lh7-us.googleusercontent.com/DbNjDBZ8rYyu6Gns_MHCXGRk05Jz29xPg5VXULrlYF0y-g6Sl0ruHzo37EAlqCGCw5aih5xBdUjppfOA92Wsb29k7z62raU66bgUtLH73QUWVw8ZQt0PLqeXI4fPwkwRlRNGJnjE3A5ezD2aejmJsz1phg=s2048)**
+
+After separating the states in each cell into components and calculating the approximate Shapley values, we get this classification setup:
+
+**![](https://lh7-us.googleusercontent.com/zyV94eL3Z-aXn5Q35NqszT-86LKzwbqkspAX-xzmTAA-FmbTjx4zPvNnrwZvIrGwaSGAKONTzlTAD581Wcu8R7eQ_BOBFr_nn7ilh5dlwhJXWuYyo6oOdlNY5-DgVy2S5zXknZVVuEzC0s_9otQPnBbz1w=s2048)**
+
+To quickly summarize the reasoning behind this setup, the tanh candidate value gate calculates the actual values that get added while the sigmoid forget gate only controls how strongly they affect the output state. As such, the classification in the tanh gates and previous hidden states are the main determinant of which state output values get added to, while the forget gate only serves as a tiebreaker when the candidate value is neither inside nor outside. Input tokens are added to the appropriate hidden state based on whether we classify them as inside or outside in the hypothesis.
+
+### Experimental Setup
+In our implementation, we used Facebook's pretrained LSTM (Gulordava et al. 2018). This was the same model the authors used to obtain the chosen results, so picking it eliminated a source of variance in our results. Pretraining also meant we didn't have to spend time training our own model from scratch.
+
+After loading the model, we obtain the weights, then split them into input, output, cell, and forget gate weights. From there, we re-implemented the LSTM forward pass algorithm, adding the split weights and decomposition where necessary. We then added the inside and outside states and verified that the sum matched the normal forward pass states as a sanity check. Beyond that, we compared the results in the paper listed above to the ones we generated as our evaluation metric.
+
+### Dataset Generation
+Unfortunately, the authors did not publish the datasets they used in the paper, but we tried to recreate them based on what their descriptions. They used the WinoBias corpus as their dataset for stereotypical referents, but for the unambiguous referent dataset they only mention using the same template. We used ChatGPT to generate a list of sentences for each category using the WinoBias template, but since we don't have access to more information we're not sure whether our dataset matches the original. We're also unsure how the authors obtained their datasets for MM / FF pairs, as the WinoBias dataset only had MF and FM pairs and they did not elaborate further.
+
+**![](https://lh7-us.googleusercontent.com/0gCADSM-Pa7dAbmUnxm-VS7qL7nrRy_aQFKx80-o7iJ8qxYsR81lZhtXbvQxjSO6RNZ_jd7ZMpjjVd7o609iJmJnuJKZxeGyXJ5OApjlS8dpUGWHKGJ4gZq0x6XWGtNsSVDQxgAef3fNdqgdvb_HMyRvSg=s2048)**
+*Sample sentences from the FM unambiguous dataset.*
+
+**![](https://lh7-us.googleusercontent.com/9zX7_NRCpSqUYpDDGSE2A4on163yiMXvrMnrLUwRO6XLP-KFnhR_u2rkIHjYBq0CjEJDR3rK6SSML0IyMUtkRc5vwk99wrJmYXjvNBB8K60E53T2pOv6x9izQO2KCubaAneUKNOg2I4hCNCseM4LAdCfGg=s2048)**
+*Sample sentences from the MF stereotypical dataset.*
+
 # Results and Analysis
 **![](https://lh7-us.googleusercontent.com/HVpQlUz8FXM-hr5rWxKWDqoJEwFTcBBL-vbUVLTu6dtt_Gf6f6WIBWZ0OleaJ8XmCWZkULvhoCbmixf26S7uBOGJ8ztRht_JSOSvHRPIvkCi6rD5rKn83hvBnn8Kx5umepBH4q5pav5o7ZuSOb8KFOt1uw=s2048)**
 
