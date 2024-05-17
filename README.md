@@ -1,6 +1,6 @@
 # Introduction
 
-Hi! We'll be going over our reimplementation of generalized contextual decomposition in this document. Generalized contextual decomposition is a method of analyzing language models that was introduced in the paper Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment (Jumulet, Zuidema, and Hupkes, presented at CoNLL 2019). 
+This README will cover our reimplementation of generalized contextual decomposition for our CS 4782 final project. Generalized contextual decomposition is a method of analyzing language models that was introduced in the paper Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment (Jumulet, Zuidema, and Hupkes, presented at CoNLL 2019). 
 
 One of the central goals of neural network interpretability is analyzing how models come to their conclusions by tracking how information flows through them. Generalized contextual decomposition falls into this category, but accomplishes this much more efficiently than prior methods. While other methods are either interpretable or reusable at the cost of the other, generalized contextual decomposition achieves both qualities.
 
@@ -72,5 +72,5 @@ In the future, we plan to generate new hypotheses to see whether the results we 
 
 # References
 
-Beyond Word Importance: Contextual Decomposition to Extract Interactions from LSTMs: https://arxiv.org/abs/1801.05453
-Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment: https://arxiv.org/abs/1909.08975
+Murdoch, W. J., Liu, P. J., & Yu, B. (2018). Beyond word importance: Contextual decomposition to extract interactions from lstms. arXiv preprint arXiv:1801.05453.
+Jumelet, J., Zuidema, W., & Hupkes, D. (2019). Analysing neural language models: Contextual decomposition reveals default reasoning in number and gender assignment. arXiv preprint arXiv:1909.08975.
