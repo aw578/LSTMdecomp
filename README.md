@@ -44,7 +44,7 @@ In our implementation, we used Facebook's pretrained LSTM (Gulordava et al. 2018
 After loading the model, we obtain the weights, then split them into input, output, cell, and forget gate weights. From there, we re-implemented the LSTM forward pass algorithm, adding the split weights and decomposition where necessary. We then added the inside and outside states and verified that the sum matched the normal forward pass states as a sanity check. Beyond that, we compared the results in the paper listed above to the ones we generated as our evaluation metric.
 
 ### Dataset Generation
-Unfortunately, the authors did not publish the datasets they used in the paper, but we tried to recreate them based on what their descriptions. They used the WinoBias corpus as their dataset for stereotypical referents, but for the unambiguous referent dataset they only mention using the same template. We used ChatGPT to generate a list of sentences for each category using the WinoBias template, but since we don't have access to more information we're not sure whether our dataset matches the original. We're also unsure how the authors obtained their datasets for MM / FF pairs, as the WinoBias dataset only had MF and FM pairs and they did not elaborate further.
+Unfortunately, the authors did not publish the datasets they used in the paper, but we tried to recreate them based on the descriptions they gave. They state that they used the WinoBias corpus as their dataset for stereotypical referents, but for the unambiguous referent dataset they only mention using a similar template. We used ChatGPT to generate a list of sentences for each category using the WinoBias template, but we don't have access to more information so we cannot confirm how similar our dataset is to the original. We're also unsure how the authors obtained their datasets for MM / FF pairs, as the WinoBias dataset only had MF and FM pairs and they did not elaborate further.
 
 **![](https://lh7-us.googleusercontent.com/0gCADSM-Pa7dAbmUnxm-VS7qL7nrRy_aQFKx80-o7iJ8qxYsR81lZhtXbvQxjSO6RNZ_jd7ZMpjjVd7o609iJmJnuJKZxeGyXJ5OApjlS8dpUGWHKGJ4gZq0x6XWGtNsSVDQxgAef3fNdqgdvb_HMyRvSg=s2048)**
 *Sample sentences from the FM unambiguous dataset.*
@@ -69,10 +69,7 @@ Looking at the results, it's clear that our implementation of generalized contex
 
 # Conclusion and Future Work
 
-Key takeaways: ? 
-- We did successfully implement the thing
-- Dataset issues
-- Whatever you want to say here
+The main lesson we took away from the paper was how important using the correct dataset is when it comes to correctly re-implementing a paper. We implemented our own sanity checks so the lack of data didn't affect the reimplementation process too much, but generating our own data resulted in significantly different (if still directionally correct) results. Given how much different datasets can change results, we believe that offhanded descriptions of the dataset generation process are not enough. To guarantee transparency and replicability, future ML papers should include the full datasets they used.
 
 In the future, we plan to generate new hypotheses to see whether the results we obtained here generalize to other tasks, as the original paper only tests claims about subject-verb agreement and gender-based anaphora resolution. We also plan to compare the results we obtained to attention scores from transformers to see whether they assign similar scores to the same words in each sentence.
 
