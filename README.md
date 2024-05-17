@@ -75,5 +75,5 @@ In the future, we plan to generate new hypotheses to see whether the results we 
 
 # References
 
-Murdoch, W. J., Liu, P. J., & Yu, B. (2018). Beyond word importance: Contextual decomposition to extract interactions from lstms. arXiv preprint arXiv:1801.05453.
-Jumelet, J., Zuidema, W., & Hupkes, D. (2019). Analysing neural language models: Contextual decomposition reveals default reasoning in number and gender assignment. arXiv preprint arXiv:1909.08975.
+- Jumelet, J., Zuidema, W., & Hupkes, D. (2019). Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment. In *Proceedings of the 23rd Conference on Computational Natural Language Learning (CoNLL)*.
+- Murdoch, J. W., Liu, P. J., & Yu, B. (2018). Beyond Word Importance: Contextual Decomposition to Extract Interactions from LSTMs. In *Proceedings of the 6th International Conference on Learning Representations (ICLR)*.
