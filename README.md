@@ -54,7 +54,7 @@ Unfortunately, the authors did not publish the datasets they used in the paper, 
 
 ### Code Setup
 
-Instructions and requirements for setting up the code are in code/demo.ipynb.
+Instructions and requirements for setting up the code are in code/demo.ipynb. The reimplementation does not require CUDA GPU and can be run using CPU only.
 
 # Results and Analysis
 **![](https://lh7-us.googleusercontent.com/HVpQlUz8FXM-hr5rWxKWDqoJEwFTcBBL-vbUVLTu6dtt_Gf6f6WIBWZ0OleaJ8XmCWZkULvhoCbmixf26S7uBOGJ8ztRht_JSOSvHRPIvkCi6rD5rKn83hvBnn8Kx5umepBH4q5pav5o7ZuSOb8KFOt1uw=s2048)**
