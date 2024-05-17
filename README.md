@@ -4,9 +4,9 @@ For our final CS 4782 project, we reimplemented the following paper:
 
 - Generalized contextual decomposition is a method of analyzing language models that was introduced in the paper Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment (Jumulet, Zuidema, and Hupkes, presented at CoNLL 2019). 
 
-One of the central goals of neural network interpretability is analyzing how models come to their conclusions by tracking how information flows through them. Generalized contextual decomposition falls into this category, but accomplishes this much more efficiently than prior methods. While other methods are either interpretable or reusable at the cost of the other, generalized contextual decomposition achieves both qualities.
+One of the central goals of neural network interpretability is analyzing how models come to their conclusions by tracking how information flows through them. Prior methods have to choose between interpretability or reusability at the cost of the other. Generalized contextual decomposition fully achieves both qualities, making it much more efficient than prior methods.
 
-The basic idea behind generalized contextual decomposition begins with defining "inside" and "outside" inputs to each cell. This allows us to then partition the activation values into the parts caused by inside and outside values during the forward pass. By doing this, we avoid having to train a new model for each hypothesis, achieving reusability. The results also clearly show how each part of the model contribute towards the output, leading to greater interpretability. As a bonus, we can also select whatever we want to test as the "inside" input, not just individual tokens.
+The following sections will go into more depth, but the basic idea behind generalized contextual decomposition is to separate a model's inputs into "inside" and "outside" components. After doing this, we then use that to partition the model's outputs into inside and outside components during the forward pass. By doing this, we avoid having to train a new model for each hypothesis, achieving reusability. The results also clearly show how both sets of model components contribute towards the output, leading to greater interpretability. As a bonus, we can also select whatever we want to test as the "inside" input, not just individual tokens.
 
 # Chosen Result
 
@@ -51,6 +51,10 @@ Unfortunately, the authors did not publish the datasets they used in the paper, 
 
 **![](https://lh7-us.googleusercontent.com/9zX7_NRCpSqUYpDDGSE2A4on163yiMXvrMnrLUwRO6XLP-KFnhR_u2rkIHjYBq0CjEJDR3rK6SSML0IyMUtkRc5vwk99wrJmYXjvNBB8K60E53T2pOv6x9izQO2KCubaAneUKNOg2I4hCNCseM4LAdCfGg=s2048)**
 *Sample sentences from the MF stereotypical dataset.*
+
+### Code Setup
+
+Instructions and requirements for setting up the code are in code/demo.ipynb.
 
 # Results and Analysis
 **![](https://lh7-us.googleusercontent.com/HVpQlUz8FXM-hr5rWxKWDqoJEwFTcBBL-vbUVLTu6dtt_Gf6f6WIBWZ0OleaJ8XmCWZkULvhoCbmixf26S7uBOGJ8ztRht_JSOSvHRPIvkCi6rD5rKn83hvBnn8Kx5umepBH4q5pav5o7ZuSOb8KFOt1uw=s2048)**
