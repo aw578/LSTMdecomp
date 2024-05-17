@@ -1,6 +1,8 @@
 # Introduction
 
-This README will cover our reimplementation of generalized contextual decomposition for our CS 4782 final project. Generalized contextual decomposition is a method of analyzing language models that was introduced in the paper Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment (Jumulet, Zuidema, and Hupkes, presented at CoNLL 2019). 
+For our final CS 4782 project, we reimplemented the following paper:
+
+- Generalized contextual decomposition is a method of analyzing language models that was introduced in the paper Analysing Neural Language Models: Contextual Decomposition Reveals Default Reasoning in Number and Gender Assignment (Jumulet, Zuidema, and Hupkes, presented at CoNLL 2019). 
 
 One of the central goals of neural network interpretability is analyzing how models come to their conclusions by tracking how information flows through them. Generalized contextual decomposition falls into this category, but accomplishes this much more efficiently than prior methods. While other methods are either interpretable or reusable at the cost of the other, generalized contextual decomposition achieves both qualities.
 
